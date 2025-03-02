@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "dev": "nest start --watch",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -20,9 +21,24 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@google-ai/generativelanguage": "^2.9.1",
+    "@google-cloud/storage": "^7.15.2",
+    "@google/generative-ai": "^0.22.0",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
+    "@nestjs/mongoose": "^11.0.1",
+    "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+    "axios": "^1.8.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.11.0",
+    "openai": "^4.86.1",
+    "passport": "^0.7.0",
+    "passport-headerapikey": "^1.2.2",
+    "puppeteer": "^24.3.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },

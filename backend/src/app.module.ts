@@ -1,10 +1,30 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
+import { ParsersModule } from './parsers/parsers.module';
+import { SocialListeningModule } from './social-listening/social-listening.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    // Load environment variables
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    // MongoDB connection
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    }),
+    // Feature modules
+    AuthModule,
+    ParsersModule,
+    SocialListeningModule,
+  ],
 })
 export class AppModule {}

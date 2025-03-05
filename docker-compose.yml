@@ -35,15 +35,13 @@ services:
     volumes:
       - .:/app:rw
     build: 
-      context: .
+      context: ./backend
     ports:
       - 8000:8000
     depends_on:
       - mongo_db
       - nginx
     command: 'yarn dev'
-    volumes:
-      - ./backend:/app
     networks:
       - my-network
     # environment:
@@ -56,7 +54,7 @@ services:
     volumes:
       - .:/app:rw
     build: 
-      context: .
+      context: ./frontend
     ports:
       - 3000:3000
     depends_on:

@@ -43,12 +43,12 @@ services:
     # environment:
     #   - MONGO_URI=${MONGO_URI}
 
-  # frontend:
-  #   container_name: frontend
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #     - backend
-  #   command: 'yarn dev'
-  #   networks:
-  #     - my-network
+  frontend:
+    container_name: frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    command: 'yarn dev'
+    networks:
+      - my-network

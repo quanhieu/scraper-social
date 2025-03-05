@@ -31,7 +31,7 @@ services:
   backend-service:
     container_name: backend-service
     image: node:20-alpine
-    working_dir: /app
+    working_dir: /app/backend
     volumes:
       - .:/app:rw
     build: 
@@ -43,13 +43,13 @@ services:
     command: 'yarn dev'
     networks:
       - my-network
-    # environment:
-    #   - MONGO_URI=${MONGO_URI}
+    environment:
+      # - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
 
   frontend-service:
     container_name: frontend-service
     image: node:20-alpine
-    working_dir: /app
+    working_dir: /app/frontend
     volumes:
       - .:/app:rw
     build: 

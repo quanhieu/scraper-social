@@ -27,7 +27,7 @@ services:
       - MONGO_INITDB_DATABASE=${MONGO_DB}
     networks:
       - my-network
-    
+
   backend-service:
     container_name: backend-service
     image: node:20-alpine
@@ -40,7 +40,6 @@ services:
       - 8000:8000
     depends_on:
       - mongo_db
-      - nginx
     command: 'yarn dev'
     networks:
       - my-network

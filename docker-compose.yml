@@ -36,22 +36,22 @@ services:
     # environment:
       # - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
 
-  # frontend-service:
-  #   container_name: frontend-service
-  #   image: node:20-alpine
-  #   working_dir: /app/frontend
-  #   restart: always
-  #   volumes:
-  #     - .:/app:rw
-  #   build: 
-  #     context: ./frontend
-  #   ports:
-  #     - 3000:3000
-  #   depends_on:
-  #     - backend-service
-  #   command: 'yarn dev'
-  #   networks:
-  #     - my-network
+  frontend-service:
+    container_name: frontend-service
+    image: node:20-alpine
+    working_dir: /app/frontend
+    restart: always
+    volumes:
+      - .:/app:rw
+    build: 
+      context: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend-service
+    command: 'yarn dev'
+    networks:
+      - my-network
 
   nginx:
     container_name: nginx
@@ -63,6 +63,6 @@ services:
       - ./.nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - backend-service
-      # - frontend-service
+      - frontend-service
     networks:
       - my-network

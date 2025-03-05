@@ -30,7 +30,11 @@ services:
     
   backend-service:
     container_name: backend-service
-    build:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app:rw
+    build: 
       context: .
     ports:
       - 8000:8000
@@ -47,7 +51,11 @@ services:
 
   frontend-service:
     container_name: frontend-service
-    build:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app:rw
+    build: 
       context: .
     ports:
       - 3000:3000

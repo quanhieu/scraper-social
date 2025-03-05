@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ttdl, ytsearch, ytmp4, igdl, fbdl, ytmp3 } from 'ruhend-scraper';
-import { tiktokdl, twitter, googleit, googleImage } from '@bochilteam/scraper';
+import { tiktokdl, twitter, googleit } from '@bochilteam/scraper';
 import { Builder, By, WebDriver } from 'selenium-webdriver';
 import * as chrome from 'selenium-webdriver/chrome';
 import {
@@ -25,12 +25,30 @@ export interface TikTokSearchResult {
 @Injectable()
 export class ScraperSocialService {
   private driver: WebDriver;
+
   constructor() {
     const options = new chrome.Options();
     options.addArguments('--headless'); // Chạy trình duyệt ở chế độ không hiển thị
     this.driver = new Builder()
       .forBrowser('chrome')
       .setChromeOptions(options)
+      .build();
+  }
+
+  async onModuleInit() {
+    this.driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(
+        new chrome.Options()
+          .headless()
+          .addArguments([
+            '--no-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--remote-debugging-port=9222',
+            '--disable-software-rasterizer',
+          ]),
+      )
       .build();
   }
 

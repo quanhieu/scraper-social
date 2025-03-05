@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ttdl, ytsearch, ytmp4, igdl, fbdl, ytmp3 } from 'ruhend-scraper';
 import { tiktokdl, twitter, googleit } from '@bochilteam/scraper';
-import { Builder, By, WebDriver } from 'selenium-webdriver';
-import * as chrome from 'selenium-webdriver/chrome';
+// import { Builder, By, WebDriver } from 'selenium-webdriver';
+// import * as chrome from 'selenium-webdriver/chrome';
 import {
   IYouTubeVideoInfo,
   ITikTokVideoInfo,
@@ -24,92 +24,92 @@ export interface TikTokSearchResult {
 
 @Injectable()
 export class ScraperSocialService {
-  private driver: WebDriver;
+  // private driver: WebDriver;
 
   constructor() {
-    const options = new chrome.Options();
-    options.addArguments('--headless'); // Chạy trình duyệt ở chế độ không hiển thị
-    this.driver = new Builder()
-      .forBrowser('chrome')
-      .setChromeOptions(options)
-      .build();
+    // const options = new chrome.Options();
+    // options.addArguments('--headless'); // Chạy trình duyệt ở chế độ không hiển thị
+    // this.driver = new Builder()
+    //   .forBrowser('chrome')
+    //   .setChromeOptions(options)
+    //   .build();
   }
 
-  async onModuleInit() {
-    this.driver = await new Builder()
-      .forBrowser('chrome')
-      .setChromeOptions(
-        new chrome.Options()
-          .headless()
-          .addArguments([
-            '--no-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu',
-            '--remote-debugging-port=9222',
-            '--disable-software-rasterizer',
-          ]),
-      )
-      .build();
-  }
+  // async onModuleInit() {
+  //   this.driver = await new Builder()
+  //     .forBrowser('chrome')
+  //     .setChromeOptions(
+  //       new chrome.Options()
+  //         .headless()
+  //         .addArguments([
+  //           '--no-sandbox',
+  //           '--disable-dev-shm-usage',
+  //           '--disable-gpu',
+  //           '--remote-debugging-port=9222',
+  //           '--disable-software-rasterizer',
+  //         ]),
+  //     )
+  //     .build();
+  // }
 
   // search Tiktok
-  async tiktokSearchScrapeData(keyword: string): Promise<TikTokSearchResult[]> {
-    const searchUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(keyword)}`;
-    await this.driver.get(searchUrl);
+  // async tiktokSearchScrapeData(keyword: string): Promise<TikTokSearchResult[]> {
+  //   const searchUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(keyword)}`;
+  //   await this.driver.get(searchUrl);
 
-    // Cuộn trang để tải thêm video
-    let lastHeight = await this.driver.executeScript(
-      'return document.body.scrollHeight',
-    );
-    while (true) {
-      await this.driver.executeScript(
-        'window.scrollTo(0, document.body.scrollHeight);',
-      );
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Chờ 2 giây để nội dung tải
-      const newHeight = await this.driver.executeScript(
-        'return document.body.scrollHeight',
-      );
-      if (newHeight === lastHeight) {
-        break;
-      }
-      lastHeight = newHeight;
-    }
+  //   // Cuộn trang để tải thêm video
+  //   let lastHeight = await this.driver.executeScript(
+  //     'return document.body.scrollHeight',
+  //   );
+  //   while (true) {
+  //     await this.driver.executeScript(
+  //       'window.scrollTo(0, document.body.scrollHeight);',
+  //     );
+  //     await new Promise((resolve) => setTimeout(resolve, 2000)); // Chờ 2 giây để nội dung tải
+  //     const newHeight = await this.driver.executeScript(
+  //       'return document.body.scrollHeight',
+  //     );
+  //     if (newHeight === lastHeight) {
+  //       break;
+  //     }
+  //     lastHeight = newHeight;
+  //   }
 
-    // Lấy danh sách các video
-    const videos = await this.driver.findElements(
-      By.css('div[data-e2e="search_top-item-list"]'),
-    );
+  //   // Lấy danh sách các video
+  //   const videos = await this.driver.findElements(
+  //     By.css('div[data-e2e="search_top-item-list"]'),
+  //   );
 
-    const results: TikTokSearchResult[] = [];
-    for (const video of videos) {
-      try {
-        const title = await video
-          .findElement(By.css('a div div:nth-child(2) > div > h3'))
-          .getText();
-        const stats = await video.findElements(
-          By.css('a div div:nth-child(2) > div > div > strong'),
-        );
-        const [views, likes, comments, shares] = await Promise.all<string>(
-          stats.map((stat) =>
-            stat ? (stat.getText() as Promise<string>) : Promise.resolve('0'),
-          ),
-        );
+  //   const results: TikTokSearchResult[] = [];
+  //   for (const video of videos) {
+  //     try {
+  //       const title = await video
+  //         .findElement(By.css('a div div:nth-child(2) > div > h3'))
+  //         .getText();
+  //       const stats = await video.findElements(
+  //         By.css('a div div:nth-child(2) > div > div > strong'),
+  //       );
+  //       const [views, likes, comments, shares] = await Promise.all<string>(
+  //         stats.map((stat) =>
+  //           stat ? (stat.getText() as Promise<string>) : Promise.resolve('0'),
+  //         ),
+  //       );
 
-        results.push({
-          title,
-          views,
-          likes,
-          comments,
-          shares,
-        });
-      } catch (error) {
-        console.error('Error extracting video data:', error);
-      }
-    }
+  //       results.push({
+  //         title,
+  //         views,
+  //         likes,
+  //         comments,
+  //         shares,
+  //       });
+  //     } catch (error) {
+  //       console.error('Error extracting video data:', error);
+  //     }
+  //   }
 
-    await this.driver.quit();
-    return results;
-  }
+  //   await this.driver.quit();
+  //   return results;
+  // }
 
   // TikTok info
   async getTikTokVideoInfo(url: string): Promise<ITikTokVideoInfo> {

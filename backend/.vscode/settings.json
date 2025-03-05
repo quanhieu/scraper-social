@@ -1,0 +1,14 @@
+{
+  "css.validate": false,
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "eslint.enable": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "never"
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active"
+}

@@ -1,37 +1,42 @@
-
 networks:
-  mynetwork:
+  my-network:
     driver: bridge
 
 services:
-  mongodb:
-    image: mongo:4.0.4
-    container_name: mongodb
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
     ports:
-      - 27017:27017
+      - ${MONGO_PORT}:27017
     volumes:
       - ./data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
     networks:
-      - mynetwork
+      - my-network
     
-  backend:
-    container_name: backend
-    ports:
-      - 8000:8000
-    depends_on:
-      - mongodb
-    command: 'yarn dev'
-    volumes:
-      - ./backend:/app
-    networks:
-      - mynetwork
+  # backend:
+  #   container_name: backend
+  #   ports:
+  #     - 8000:8000
+  #   depends_on:
+  #     - mongo_db
+  #   command: 'yarn dev'
+  #   volumes:
+  #     - ./backend:/app
+  #   networks:
+  #     - my-network
+  #   # environment:
+  #   #   - MONGO_URI=${MONGO_URI}
 
-  frontend:
-    container_name: frontend
-    ports:
-      - 3000:3000
-    depends_on:
-      - backend
-    command: 'yarn dev'
-    networks:
-      - mynetwork
+  # frontend:
+  #   container_name: frontend
+  #   ports:
+  #     - 3000:3000
+  #   depends_on:
+  #     - backend
+  #   command: 'yarn dev'
+  #   networks:
+  #     - my-network

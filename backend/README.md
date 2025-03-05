@@ -1,3 +1,64 @@
+## Todo
+
+- Users enter the website link
+  - Example: n8n, Notion, Binance, OKX, Jasper AI.
+- The system automatically searches for review videos that mention the brand name on YouTube & TikTok containing that link or related keywords.
+- Collect data including:
+
+  - Views
+
+  - Likes, comments, shares
+
+- Rank videos based on engagement and influence.
+
+## Flow implement
+
+### 1. Implement search url
+- website
+- youtube
+- tiktok
+- product name
+
+- show 2 tabs scraper data
+  - Default scraper data
+    - Tiktok: /api/v1/scraper/tiktok/info
+    - Youtube: /api/v1/youtube/video-info
+    - website: /api/v1/openrouter/scrape-product-by-llms-and-scraper
+  - Scraper data by llm only
+    - website: /api/v1/openrouter/scrape-product-by-llms-only
+    - search product name
+=> return product name, description, like, view, share, comment count
+
+### 2. Search video review on Youtube
+- return list video with title, like, view, share, comment count
+- implement sort
+
+## UI nextjs
+
+- input search center
+- option search [Default, LLMs] search
+- analize website, youtube, tiktok and return product name, like, view, share, comment count
+- search youtube Review product and save to database (name product, like, view, share, comment count) - get 50 videos
+- show list view review
+- implement sort by like, view, share, comment count
+
+## Flow research
+
+- scraper website, youtube, tiktok
+- Scraper tích hợp LLm
+- Không scraper chỉ dùng LLm
+    - 
+- Phương hướng phát triển tiếp theo nếu không đọc được nội dung video bằng LLm thì sẽ convert speak to text rồi dùng LLms đoán và trả ra kết quả
+- Hiện tại chỉ có thể search chính xác 1 video tiktok, tương lai có thể search nhiều video hơn, lý do chưa làm dc hiện tại vì thiếu tài nguyên (donain đăng ký với tiktok developer, tích hợp 3rd party scraper data tử tiktok,…)
+- Giảm chi phí: xây dựng một background job chuyên crawl data có tích hợp LLm để giảm thời gian phân tích cấu trúc website
+- 
+- thêm híatory search và cache lại search ủl trước đó để không phải call lại llm
+- Thêm option chọn model LLm để search 
+
+
+---
+---
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

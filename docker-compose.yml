@@ -19,7 +19,7 @@ services:
 
   backend-service:
     container_name: backend-service
-    image: node:20-alpine
+    image: node:20
     working_dir: /app/backend
     restart: always
     volumes:
@@ -38,7 +38,7 @@ services:
 
   frontend-service:
     container_name: frontend-service
-    image: node:20-alpine
+    image: node:20
     working_dir: /app/frontend
     restart: always
     volumes:

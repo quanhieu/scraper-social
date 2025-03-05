@@ -19,22 +19,21 @@ services:
 
   backend-service:
     container_name: backend-service
-    image: node:20
-    working_dir: /app/backend
-    restart: always
-    volumes:
-      - .:/app:rw
     build: 
       context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
     ports:
       - 8010:8000
     depends_on:
       - mongo_db
-    command: 'yarn dev'
     networks:
       - my-network
     # environment:
-      # - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
+    #   - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
 
   frontend-service:
     container_name: frontend-service

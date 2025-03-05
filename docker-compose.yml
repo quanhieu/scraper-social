@@ -28,8 +28,10 @@ services:
     networks:
       - my-network
     
-  backend:
-    container_name: backend
+  backend-service:
+    container_name: backend-service
+    build:
+      context: .
     ports:
       - 8000:8000
     depends_on:
@@ -43,12 +45,14 @@ services:
     # environment:
     #   - MONGO_URI=${MONGO_URI}
 
-  frontend:
-    container_name: frontend
+  frontend-service:
+    container_name: frontend-service
+    build:
+      context: .
     ports:
       - 3000:3000
     depends_on:
-      - backend
+      - backend-service
     command: 'yarn dev'
     networks:
       - my-network

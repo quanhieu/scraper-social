@@ -32,7 +32,7 @@ services:
     command: 'yarn dev'
     networks:
       - my-network
-    environment:
+    # environment:
       # - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
 
   frontend-service:

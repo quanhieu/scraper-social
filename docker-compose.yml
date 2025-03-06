@@ -7,13 +7,14 @@ services:
     image: mongo:latest
     container_name: mongo_db
     ports:
-      - 27017:27017
-    # volumes:
-    #   - ./data:/data/db
+      - ${MONGO_PORT}:27017
+    volumes:
+      - ./data:/data/db
+      - - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password123
-      - MONGO_INITDB_DATABASE=social-listening
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
     networks:
       - my-network
 

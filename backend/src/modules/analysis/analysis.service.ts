@@ -57,7 +57,6 @@ export class AnalysisService {
       // Step 1: check analysis exist
       let productName: string = '';
       const validAnalysis = await this.findByInput(input, locale, model);
-      // productName = validAnalysis?.productName || '';
       if (validAnalysis) {
         return validAnalysis;
       }
@@ -104,8 +103,10 @@ export class AnalysisService {
       }
 
       // use llm to clean input -> update later if need
-      // const productNameFormatted =
-      //   await this.scraperService.cleanInputProductInfo(productName);
+      const productNameFormatted =
+        await this.scraperService.cleanInputProductInfo(productName);
+      console.log('\n\nproductNameFormatted=========== ', productNameFormatted);
+      productName = productNameFormatted;
 
       // search done and save to db
       const analysis = await this.analysisModel.findOneAndUpdate(
@@ -239,13 +240,13 @@ export class AnalysisService {
 
       // default fetch video tiktok
       // TODO: need to setup open ai key with permission access to internet
-      // const fetchVideoTiktok =
-      //   await this.scraperService.fetchVideoByOpenAiProvider(
-      //     productName,
-      //     TYPE_INPUT.TIKTOK as keyof typeof TYPE_INPUT,
-      //     locale as keyof typeof LOCALE,
-      //   );
-      // videoList.push(...fetchVideoTiktok);
+      const fetchVideoTiktok =
+        await this.scraperService.fetchVideoByOpenAiProvider(
+          productName,
+          TYPE_INPUT.TIKTOK as keyof typeof TYPE_INPUT,
+          locale as keyof typeof LOCALE,
+        );
+      videoList.push(...fetchVideoTiktok);
 
       // Note: chatgpt can search video on youtube and tiktok OK throw perplexity.ai
 

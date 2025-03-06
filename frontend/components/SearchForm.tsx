@@ -313,7 +313,7 @@ export default function SearchForm({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-md mb-4">
           <div>
             <p className="font-medium">Input:</p>
-            <p>{analysis.input}</p>
+            <p className="whitespace-pre-wrap break-words">{analysis.input}</p>
           </div>
           <div>
             <p className="font-medium">Product:</p>

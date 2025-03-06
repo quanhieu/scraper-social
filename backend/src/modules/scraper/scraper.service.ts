@@ -44,7 +44,8 @@ export class ScraperService {
       // Extract title and meta description
       const title = $('title').first().text().trim();
       // eslint-disable-next-line prettier/prettier
-      const metaDescription = $('meta[name="description"]').attr('content')?.trim() || '';
+      const metaDescription =
+        $('meta[name="description"]').attr('content')?.trim() || '';
 
       // Extract main text content
       const mainContent = $('body').text().replace(/\s+/g, ' ').trim();
@@ -117,7 +118,15 @@ export class ScraperService {
     `;
 
     const aiResults = await this.openRouter.queryLLMByGeminiProvider(prompt);
-    const parsedResults = JSON.parse(aiResults) as { name?: string };
+    const jsonString = aiResults
+      .replace(/```json\s*/g, '')
+      .replace(/```\s*/g, '')
+      .trim();
+    console.log('jsonString ', jsonString);
+
+    const parsedResults: {
+      name: string;
+    } = JSON.parse(jsonString);
 
     return parsedResults?.name || '';
   }

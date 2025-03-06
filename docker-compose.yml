@@ -34,7 +34,7 @@ services:
     networks:
       - my-network
     environment:
-      - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
+      - MONGODB_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo_db:${MONGO_PORT}/${MONGO_DB}?authSource=admin
 
   frontend-service:
     container_name: frontend-service

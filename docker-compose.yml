@@ -7,15 +7,15 @@ services:
     image: mongo:latest
     container_name: mongo_db
     ports:
-      - ${MONGO_PORT}:27017
-    volumes:
-      - ./data:/data/db
+      - 27017:27017
+    # volumes:
+    #   - ./data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGO_DB}
-    # networks:
-    #   - my-network
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+      - MONGO_INITDB_DATABASE=social-listening
+    networks:
+      - my-network
 
   backend-service:
     container_name: backend-service

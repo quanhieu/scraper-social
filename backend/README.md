@@ -1,3 +1,18 @@
+## Setup environment
+
+### 1. [Tiktok developers application - client key + secret](https://developers.tiktok.com/apps)
+
+### 2. [Google credentials - api key](https://console.cloud.google.com/apis/credentials)
+
+### 3. [Google gemini - api key](https://aistudio.google.com/app/apikey)
+
+### 4. [Chat GPT - api key](https://platform.openai.com/api-keys)
+
+### 5. [Open Router - api key](https://openrouter.ai/settings/keys)
+
+### 5. [Yescale - like Open Router but for Image, Audio, Video](https://yescale.io)
+https://egany-tech.larksuite.com/share/base/form/shrusxwVHjnZ1B8yxyQbnMzzPKb
+
 ## Todo
 
 - Users enter the website link
